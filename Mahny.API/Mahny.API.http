@@ -1,0 +1,6 @@
+@Mahny.API_HostAddress = http://localhost:5293
+
+GET {{Mahny.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
