@@ -8,6 +8,7 @@ using Mahny.Core.Entities;
 using Mahny.Service.Dtos.CategoryDtos.Admin;
 using Microsoft.AspNetCore.Http;
 using Mahny.Service.Dtos.GenreDtos.Admin;
+using Mahny.Service.Dtos.SliderDtos.Admin;
 
 namespace Mahny.Service.Profiles
 {
@@ -34,6 +35,13 @@ namespace Mahny.Service.Profiles
             CreateMap<Genre, GenreGetDto>();
             CreateMap<Genre, GenreListItemGetDto>();
             CreateMap<GenreCreateDto, Genre>();
+
+            //Slider
+            CreateMap<Slider, SliderGetDto>()
+                .ForMember(dest => dest.Image, s => s.MapFrom(s => baseUrl + "uploads/slider/" + s.Image));
+            CreateMap<Slider, SliderListItemGetDto>()
+                .ForMember(dest => dest.Image, s => s.MapFrom(s => baseUrl + "uploads/slider/" + s.Image));
+            CreateMap<SliderCreateDto, Slider>();
 
         }
     }

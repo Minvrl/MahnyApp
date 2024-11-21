@@ -68,6 +68,9 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 
+builder.Services.AddScoped<ISliderRepository, SliderRepository>();
+builder.Services.AddScoped<ISliderService, SliderService>();
+
 
 builder.Services.AddFluentValidationRulesToSwagger();
 
@@ -85,7 +88,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();

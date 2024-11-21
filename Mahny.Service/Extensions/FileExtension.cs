@@ -32,5 +32,32 @@ namespace Mahny.Service.Extensions
 
             return newFileName;
         }
+
+
+
+        public static void Delete(this string fileName, string root, string folder)
+        {
+            if (string.IsNullOrWhiteSpace(fileName)) return;
+
+            string filePath = Path.Combine(root, folder, fileName);
+
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    File.Delete(filePath);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to delete file! {ex.Message}");
+                }
+            }
+        }
+
+        public static void Delete(this string fileName, string folder)
+        {
+            string root = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            Delete(fileName, root, folder);
+        }
     }
 }
