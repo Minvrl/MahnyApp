@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Mahny.Core.Entities;
 using Mahny.Service.Dtos.CategoryDtos.Admin;
 using Microsoft.AspNetCore.Http;
+using Mahny.Service.Dtos.GenreDtos.Admin;
 
 namespace Mahny.Service.Profiles
 {
@@ -24,8 +25,15 @@ namespace Mahny.Service.Profiles
             }
             string baseUrl = uriBuilder.Uri.AbsoluteUri;
 
+            //Category
             CreateMap<Category, CategoryGetDto>();
+            CreateMap<Category, CategoryListItemGetDto>();
             CreateMap<CategoryCreateDto, Category>();
+
+            //Genre
+            CreateMap<Genre, GenreGetDto>();
+            CreateMap<Genre, GenreListItemGetDto>();
+            CreateMap<GenreCreateDto, Genre>();
 
         }
     }

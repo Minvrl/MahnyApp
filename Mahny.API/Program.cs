@@ -11,6 +11,7 @@ using Mahny.Service.Profiles;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +30,21 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("admin_v1", new OpenApiInfo
+    {
+        Title = "Admin API",
+        Version = "v1"
+    });
+
+    c.SwaggerDoc("user_v1", new OpenApiInfo
+    {
+        Title = "User API",
+        Version = "v1"
+    });
+
+});
 
 builder.Services.AddHttpContextAccessor();
 
@@ -50,6 +65,9 @@ builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<IGenreService, GenreService>();
+
 
 builder.Services.AddFluentValidationRulesToSwagger();
 
@@ -59,7 +77,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/admin_v1/swagger.json", "Admin API v1");
+        options.SwaggerEndpoint("/swagger/user_v1/swagger.json", "User API v1");
+    });
 }
 
 app.UseHttpsRedirection();
